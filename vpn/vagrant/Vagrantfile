@@ -1,0 +1,25 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+
+  config.vm.provision "shell", inline: "echo Hello"
+  config.vm.box = "hashicorp/bionic64"
+
+  config.vm.define "client" do |client|
+    client.vm.hostname = "client"
+  end
+
+  config.vm.define "server" do |server|
+    server.vm.hostname = "server"
+  end
+
+  config.vm.define "target" do |target|
+    target.vm.hostname = "target"
+  end
+
+end
