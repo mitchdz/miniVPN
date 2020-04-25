@@ -10,7 +10,7 @@ This project explores SEEDLabs VPN-lab implementation. The emphasis for this imp
 
 To provision the virtual machines for miniVPN, simply run
 ```
-vagrant up
+vagrant up --parallel
 ```
 Which will provision 3 machines with the following address allocations:
 
