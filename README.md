@@ -1,31 +1,75 @@
-## miniVPN-vagrant
+## miniVPN
 
-This project explores SEEDLabs VPN-lab implementation. The emphasis for this implementation is to automate the process of setting up the machines. To achieve this effect, Hashicorp's Vagrant has been utilized to automate the setup and provisioning of the test demo.
-
-## Prerequisites
-- Vagrant
-- Virtualbox
-
-***NOTICE:*** *This provisioning script will **automatically assign** the IP address of the machines to the ones shown in the table below. If machines with these addresses exist on the network, there will be an **IP address conflict**.*
-
-To provision the virtual machines for miniVPN, simply run
-```
-vagrant up
-```
-Which will provision 3 machines with the following address allocations:
+This project is following SEEDLabs VPN-labs. To execute the lab, multiple virtual machines will need to be created. The table below shows the networking table that we try to achieve.
 
 | machine | IP |
 | ------- | -- |
-| client | **10.0.2.7** |
-| server | **10.0.2.8** & **192.168.60.1** |
-| target | **192.168.60.101** |
+| client | **10.0.2.7 (NAT)** |
+| server | **10.0.2.8 (NAT)** & **192.168.60.1 (vpnnet)** |
+| target | **192.168.60.101 (vpnnet)** |
 
-to access the machines, simply run the following command
+The following software versions are utilized:
+hypervsior - Virtualbox 5.2.34_Ubuntu r133883
+guest OS - ubuntu-18.04.4-desktop-amd64
 
-```
-vagrant ssh [client|server|target]
-```
-where you choose one of the three machines, (client, server, target).
+
+## VirtualBox settings
+
+Do the following instructions through Virtualbox in order to set up the internal network between the server and the target
+
+# 1. Server
+
+* open up the settings of the **server** virtual machine
+
+* click `Network` in the left column
+
+* Open `Adapter 2` tab on the top (Leave Adapter 1 alone)
+
+* Create an internal network by changing the `Attached to:` dropdown to `Internal Network`, and then give the network a name. We used vpnnet.
+
+<img src="virtualbox-media/networking_server.png" alt="Gateway Settings" style="width: 460px;"/>
+
+# 2. Target
+* open up the settings of the **target** virtual machine
+
+* click `Network` in the left column
+
+* Open `Adapter 2` tab on the top (Leave Adapter 1 alone)
+
+* Create an internal network by changing the `Attached to:` dropdown to `Internal Network`, and then give the network a name. We used vpnnet.
+
+<img src="virtualbox-media/networking_target.png" alt="Gateway Settings" style="width: 460px;"/>
+
+
+## Setting up networking in the virtual machine
+# 1. Server
+Log into your server machine and on the top right click the icon to open the dropdown menu.
+
+<img src="virtualbox-media/setting_up_server_1.png" alt="Gateway Settings" style="width: 460px;"/>
+
+You will notice that there are two 'ethernet' connections, and they will most likely be different names for you. We notice there that enp0s3 is up which is the NAT network, and enp0s8 is down which is the vpnnet network.
+
+<img src="virtualbox-media/setting_up_server_2.png" alt="Gateway Settings" style="width: 460px;"/>
+
+Click the `Wired Settings` option for the second ethernet option.
+
+<img src="virtualbox-media/setting_up_server_3.png" alt="Gateway Settings" style="width: 460px;"/>
+
+You will notice that two connections again , click the cog icon to the right of enp0s8 (the adapter name may be different for you)
+
+Follow each step:
+* click the `IPv4` tab on the top
+
+* check off `Manual` in the IPv4 Method section instead of 'Automatic(DHCP)'
+
+* Write the following networking settings shown below, and then click apply.
+
+<img src="virtualbox-media/setting_up_server_4.png" alt="Gateway Settings" style="width: 460px;"/>
+
+
+\
+Now the internal network is configured.
+
 
 
 ---
