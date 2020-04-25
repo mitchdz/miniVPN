@@ -17,19 +17,43 @@ The following software versions are utilized:
 
 Do the following instructions through Virtualbox in order to set up the internal network between the server and the target
 
-# 1. Server
+# 1. Create a NAT Network
+
+* open up `File` on the top left of the VirtualBox Manager
+
+* Open up `Network`
+
+<img src="virtualbox-media/NATNetwork_1.png" alt="Gateway Settings" style="width: 460px;"/> \
+
+* Press the green + icon on the top right of the window
+
+* keep the default settings which are shown below
+
+<img src="virtualbox-media/NATNetwork_2.png" alt="Gateway Settings" style="width: 460px;"/> \
+
+* press okay
+
+# 2. Server
 
 * open up the settings of the **server** virtual machine
 
 * click `Network` in the left column
 
-* Open `Adapter 2` tab on the top (Leave Adapter 1 alone)
+* Open `Adapter 2` tab on the top (Leave Adapter 1 alone for now)
 
 * Create an internal network by changing the `Attached to:` dropdown to `Internal Network`, and then give the network a name. We used vpnnet.
 
-<img src="virtualbox-media/networking_server.png" alt="Gateway Settings" style="width: 460px;"/>
+<img src="virtualbox-media/networking_server.png" alt="Gateway Settings" style="width: 460px;"/> \
 
-# 2. Target
+
+* Open `Adapter 1` tab on the top
+
+* Set Adapter 1 to `Nat Network` and choose the NAT Network we created earlier.
+
+<img src="virtualbox-media/networking_server2.png" alt="Gateway Settings" style="width: 460px;"/> \
+
+
+# 3. Target
 * open up the settings of the **target** virtual machine
 
 * click `Network` in the left column
@@ -38,10 +62,21 @@ Do the following instructions through Virtualbox in order to set up the internal
 
 * Create an internal network by changing the `Attached to:` dropdown to `Internal Network`, and then give the network a name. We used vpnnet.
 
-<img src="virtualbox-media/networking_target.png" alt="Gateway Settings" style="width: 460px;"/>
+<img src="virtualbox-media/networking_client.png" alt="Gateway Settings" style="width: 460px;"/>
+
+# 4. client
+* open up the settings of the **client** virtual machine
+
+* click `Network` in the left column
+
+* Open `Adapter 1` tab on the top (Leave Adapter 1 alone)
+
+* Set Adapter 1 to `Nat Network` and choose the NAT Network we created earlier.
+
+<img src="virtualbox-media/networking_client.png" alt="Gateway Settings" style="width: 460px;"/>
 
 
-## Setting up networking in the virtual machine
+## Setting up networking inside the virtual machine
 # 1. Server
 Log into your server machine and on the top right click the icon to open the dropdown menu.
 
@@ -64,25 +99,16 @@ Follow each step:
 
 * Write the following networking settings shown below, and then click apply.
 
-<img src="virtualbox-media/setting_up_server_4.png" alt="Gateway Settings" style="width: 460px;"/>
+<img src="virtualbox-media/setting_up_server_4.png" alt="Gateway Settings" style="width: 460px;"/>\
 
-\
-
-Now follow the same steps on the other network interface. In this case, the name was enp0s3.
-
-<img src="virtualbox-media/setting_up_server_alt.png" alt="Gateway Settings" style="width: 460px;"/>
 
 # 2. Target
 Similar to Server, set up the networking as such:
 
 <img src="virtualbox-media/setting_up_target_1.png" alt="Gateway Settings" style="width: 460px;"/>
 
-# 3. Client
-Similar to Server, set up the networking as such:
-<img src="virtualbox-media/setting_up_client_1.png" alt="Gateway Settings" style="width: 460px;"/>
 
-
-# Testing setup
+# Testing internal network
 
 Test that the server can ping the target:
 * press `ctrl + alt + t` to open a terminal
