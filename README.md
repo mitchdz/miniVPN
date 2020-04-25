@@ -9,8 +9,8 @@ This project is following SEEDLabs VPN-labs. To execute the lab, multiple virtua
 | target | **192.168.60.101 (vpnnet)** |
 
 The following software versions are utilized:
-hypervsior - Virtualbox 5.2.34_Ubuntu r133883
-guest OS - ubuntu-18.04.4-desktop-amd64
+* hypervsior - Virtualbox 5.2.34_Ubuntu r133883
+* guest OS - ubuntu-18.04.4-desktop-amd64
 
 
 ## VirtualBox settings
@@ -69,6 +69,19 @@ Follow each step:
 
 \
 Now the internal network is configured.
+
+
+Test that the server can ping the target:
+* press `ctrl + alt + t` to open a terminal
+* type in `ping -c 2 192.168.60.101`
+
+You should get a response
+
+<img src="virtualbox-media/setting_up_test_ping_server-target.png" alt="Gateway Settings" style="width: 460px;"/>
+
+
+
+
 
 
 
