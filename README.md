@@ -66,10 +66,23 @@ Follow each step:
 
 <img src="virtualbox-media/setting_up_server_4.png" alt="Gateway Settings" style="width: 460px;"/>
 
-
 \
-Now the internal network is configured.
 
+Now follow the same steps on the other network interface. In this case, the name was enp0s3.
+
+<img src="virtualbox-media/setting_up_server_alt.png" alt="Gateway Settings" style="width: 460px;"/>
+
+# 2. Target
+Similar to Server, set up the networking as such:
+
+<img src="virtualbox-media/setting_up_target_1.png" alt="Gateway Settings" style="width: 460px;"/>
+
+# 3. Client
+Similar to Server, set up the networking as such:
+<img src="virtualbox-media/setting_up_client_1.png" alt="Gateway Settings" style="width: 460px;"/>
+
+
+# Testing setup
 
 Test that the server can ping the target:
 * press `ctrl + alt + t` to open a terminal
@@ -78,6 +91,9 @@ Test that the server can ping the target:
 You should get a response
 
 <img src="virtualbox-media/setting_up_test_ping_server-target.png" alt="Gateway Settings" style="width: 460px;"/>
+
+
+
 
 
 
