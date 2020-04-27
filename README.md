@@ -143,6 +143,9 @@ iface enp0s3 inet static
         gateway 10.0.2.1
         dns-nameservers 8.8.8.8 8.8.4.4
 ```
+Example /etc/network/interfaces is shown below
+
+<img src="virtualbox-media/setting_up_client_2.png" alt="Gateway Settings" style="width: 460px;"/>
 
 and then either restart the system or execute the following:
 ```
