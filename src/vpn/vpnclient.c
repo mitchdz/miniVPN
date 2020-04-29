@@ -9,7 +9,7 @@
 
 #define BUFF_SIZE 2000
 #define PORT_NUMBER 55555
-#define SERVER_IP "127.0.0.1" 
+#define SERVER_IP "10.0.2.8" 
 struct sockaddr_in peerAddr;
 
 int createTunDevice() {
