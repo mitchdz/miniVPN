@@ -1,5 +1,10 @@
 ## miniVPN
 
+This project uses Ubuntu 18.04 as the virtual machine
+
+https://releases.ubuntu.com/18.04.4/ubuntu-18.04.4-desktop-amd64.iso
+
+
 This project is following SEEDLabs VPN-labs. To execute the lab, multiple virtual machines will need to be created. The table below shows the networking table that we try to achieve.
 
 | machine | IP |
