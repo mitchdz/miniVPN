@@ -9,13 +9,13 @@ This project is following SEEDLabs VPN-labs. To execute the lab, multiple virtua
 
 | machine | IP |
 | ------- | -- |
-| client | **10.0.2.7 (NAT)** |
-| server | **10.0.2.8 (NAT)** & **192.168.60.1 (vpnnet)** |
+| client | **10.0.2.7 (NATNetwork)** |
+| server | **10.0.2.8 (NATNetwork)** & **192.168.60.1 (vpnnet)** |
 | target | **192.168.60.101 (vpnnet)** |
 
 The following software versions are utilized:
 * hypervsior - Virtualbox 5.2.34_Ubuntu r133883
-* guest OS - ubuntu-18.04.4-desktop-amd64
+* guest OS (client/server/target)- ubuntu-18.04.4-desktop-amd64
 
 
 ## VirtualBox settings
@@ -34,7 +34,7 @@ Do the following instructions through Virtualbox in order to set up the internal
 
 * keep the default settings which are shown below
 
-<img src="virtualbox-media/NATNetwork_2.png" alt="Gateway Settings" style="width: 460px;"/> \
+<img src="virtualbox-media/NATNetwork_2.png" alt="Gateway Settings" style="width: 460px;"/>
 
 * press okay
 
@@ -48,14 +48,14 @@ Do the following instructions through Virtualbox in order to set up the internal
 
 * Create an internal network by changing the `Attached to:` dropdown to `Internal Network`, and then give the network a name. We used vpnnet.
 
-<img src="virtualbox-media/networking_server.png" alt="Gateway Settings" style="width: 460px;"/> \
+<img src="virtualbox-media/networking_server.png" alt="Gateway Settings" style="width: 460px;"/>
 
 
 * Open `Adapter 1` tab on the top
 
 * Set Adapter 1 to `Nat Network` and choose the NAT Network we created earlier.
 
-<img src="virtualbox-media/networking_server2.png" alt="Gateway Settings" style="width: 460px;"/> \
+<img src="virtualbox-media/networking_server2.png" alt="Gateway Settings" style="width: 460px;"/>
 
 
 # 3. Target
@@ -63,9 +63,9 @@ Do the following instructions through Virtualbox in order to set up the internal
 
 * click `Network` in the left column
 
-* Open `Adapter 2` tab on the top (Leave Adapter 1 alone)
+* Open `Adapter 1` tab
 
-* Create an internal network by changing the `Attached to:` dropdown to `Internal Network`, and then give the network a name. We used vpnnet.
+* select the network we made earlier under `NAT Network`
 
 <img src="virtualbox-media/networking_client.png" alt="Gateway Settings" style="width: 460px;"/>
 
@@ -104,7 +104,7 @@ Follow each step:
 
 * Write the following networking settings shown below, and then click apply.
 
-<img src="virtualbox-media/setting_up_server_4.png" alt="Gateway Settings" style="width: 460px;"/>\
+<img src="virtualbox-media/setting_up_server_4.png" alt="Gateway Settings" style="width: 460px;"/>
 
 
 Now we need to set a static IP for the client.
