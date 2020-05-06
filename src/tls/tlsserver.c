@@ -28,8 +28,8 @@ int main(){
   ctx = SSL_CTX_new(meth);
   SSL_CTX_set_verify(ctx, SSL_VERIFY_NONE, NULL);
   // Step 2: Set up the server certificate and private key
-  SSL_CTX_use_certificate_file(ctx, "./cert_server/server-cert.pem", SSL_FILETYPE_PEM);
-  SSL_CTX_use_PrivateKey_file(ctx, "./cert_server/server-key.pem", SSL_FILETYPE_PEM);
+  SSL_CTX_use_certificate_file(ctx, "./cert_server/bank_cert.pem", SSL_FILETYPE_PEM);
+  SSL_CTX_use_PrivateKey_file(ctx, "./cert_server/bank_key.pem", SSL_FILETYPE_PEM);
   // Step 3: Create a new SSL structure for a connection
   ssl = SSL_new (ctx);
 
