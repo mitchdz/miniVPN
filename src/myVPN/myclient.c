@@ -7,9 +7,9 @@
 #include <linux/if_tun.h>
 #include <sys/ioctl.h>
 
-#define PORT_NUMBER 55555
 #define BUFF_SIZE 2000
-
+#define PORT_NUMBER 55555
+#define SERVER_IP "10.0.2.8" 
 struct sockaddr_in peerAddr;
 
 int createTunDevice() {
@@ -25,28 +25,25 @@ int createTunDevice() {
    return tunfd;
 }
 
-int initUDPServer() {
+int connectToUDPServer(){
     int sockfd;
-    struct sockaddr_in server;
-    char buff[100];
+    char *hello="Hello";
 
-    memset(&server, 0, sizeof(server));
-    server.sin_family = AF_INET;                 
-    server.sin_addr.s_addr = htonl(INADDR_ANY);
-    server.sin_port = htons(PORT_NUMBER);        
+    memset(&peerAddr, 0, sizeof(peerAddr));
+    peerAddr.sin_family = AF_INET;
+    peerAddr.sin_port = htons(PORT_NUMBER);
+    peerAddr.sin_addr.s_addr = inet_addr(SERVER_IP);
 
     sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    bind(sockfd, (struct sockaddr*) &server, sizeof(server)); 
 
-    // Wait for the VPN client to "connect".
-    bzero(buff, 100);
-    int peerAddrLen = sizeof(struct sockaddr_in);
-    int len = recvfrom(sockfd, buff, 100, 0,                  
-                (struct sockaddr *) &peerAddr, &peerAddrLen);
+    // Send a hello message to "connect" with the VPN server
+    sendto(sockfd, hello, strlen(hello), 0,
+                (struct sockaddr *) &peerAddr, sizeof(peerAddr));
 
-    printf("Connected with the client: %s\n", buff);
     return sockfd;
 }
+
+
 
 void tunSelected(int tunfd, int sockfd){
     int  len;
@@ -75,7 +72,16 @@ int main (int argc, char * argv[]) {
    int tunfd, sockfd;
 
    tunfd  = createTunDevice();
-   sockfd = initUDPServer();
+   sockfd = connectToUDPServer();
+
+
+
+   char *user = "USERNAME";
+   char *pass = "PASSWORD";
+
+   if (argc > 1) user = argv[1];
+   if (argc > 2) pass = argv[2];
+
 
    // Enter the main loop
    while (1) {

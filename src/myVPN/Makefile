@@ -1,6 +1,6 @@
 all: 
-	gcc -o vpnserver vpnserver.c
-	gcc -o vpnclient vpnclient.c
+	gcc -o myserver myserver.c -lcrypt
+	gcc -o myclient myclient.c
 
 clean: 
-	rm vpnserver vpnclient
+	rm myserver myclient
