@@ -3,6 +3,12 @@
 #include <openssl/err.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <shadow.h>
+#include <crypt.h>
+
+#define MAXSIZE 50
 
 #define CHK_SSL(err) if ((err) < 1) { ERR_print_errors_fp(stderr); exit(2); }
 #define CHK_ERR(err,s) if ((err)==-1) { perror(s); exit(1); }
@@ -95,17 +101,22 @@ int login(char *user, char *passwd)
 }
 
 
-
 void processRequest(SSL* ssl, int sock)
 {
     char buf[1024];
     int len = SSL_read (ssl, buf, sizeof(buf) - 1);
+
+    char inHost[MAXSIZE], inUser[MAXSIZE], inPass[MAXSIZE];
+    sscanf(buf, "GET / HTTP/1.1\n\
+      Host: %s\n\
+      User: %s\n\
+      Pass: %s"\
+      , inHost, inUser, inPass);
+
+    if (login(inUser, inPass) == -1) return 0;
+
     buf[len] = '\0';
     printf("Received: %s\n",buf);
-
-
-    
-
 
 
     // Construct and send the HTML page
@@ -121,7 +132,3 @@ void processRequest(SSL* ssl, int sock)
     SSL_write(ssl, html, strlen(html));
     SSL_shutdown(ssl);  SSL_free(ssl);
 }
-
-
-
-
